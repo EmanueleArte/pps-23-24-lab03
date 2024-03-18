@@ -1,11 +1,11 @@
 package u03
 import org.junit.*
 import org.junit.Assert.*
-
 import u03.Streams.*
 import Stream.*
 import u03.Sequences.*
 import Sequence.*
+import org.junit.jupiter.api.Assertions.assertAll
 
 
 class StreamTest:
@@ -28,4 +28,11 @@ class StreamTest:
     val str1 = Stream.iterate(0)(_ + 1) // {0,1,2,3,..}
     val str2 = Stream.takeWhile(str1)(_ < 5) // {0,1,2,3,4}
     assertEquals(Cons(0, Cons(1, Cons(2, Cons(3, Cons(4, Nil()))))), Stream.toList(str2))
-    
+
+  @Test def testFill(): Unit =
+    val str1 = Stream.fill(0)("x") // {}
+    val str2 = Stream.fill(5)("x") // {"x","x","x","x","x"}
+    assertAll(
+      () => assertEquals(Nil(), toList(str1)),
+      () => assertEquals(Cons("x", Cons("x", Cons("x", Cons("x", Cons("x", Nil()))))), toList(str2))
+    )
