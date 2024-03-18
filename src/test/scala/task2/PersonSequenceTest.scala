@@ -3,21 +3,21 @@ package task2
 import org.junit.*
 import org.junit.Assert.*
 
-import u02.Modules.Person.*
-import task2.getCourses
+import u03.extensionmethods.Sequences.*
+import Sequence.*
+
+import u02.Modules.*
+import Person.*
 
 class PersonSequenceTest:
-
-  import u03.Sequences.*
-  import Sequence.*
 
   val people = Cons(Teacher("t1", "web"), Cons(Student("s1", 2024), Cons(Teacher("t2", "pps"), Nil())))
 
   @Test def testEmptySequence(): Unit =
-    assertEquals(Nil(), getCourses(Nil()))
+    assertEquals(Nil(), Nil().courses)
 
   @Test def testEmptyCoursesSequence(): Unit =
-    assertEquals(Nil(), getCourses(Cons(Student("s1", 2023), Cons(Student("s2", 2024), Cons(Student("s3", 2024), Nil())))))
+    assertEquals(Nil(), Cons(Student("s1", 2023), Cons(Student("s2", 2024), Cons(Student("s3", 2024), Nil()))).courses)
 
   @Test def testCoursesSequence(): Unit =
-    assertEquals(Cons("web", Cons("pps", Nil())), getCourses(people))
+    assertEquals(Cons("web", Cons("pps", Nil())), people.courses)

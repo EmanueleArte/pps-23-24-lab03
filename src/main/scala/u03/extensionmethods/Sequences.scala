@@ -1,5 +1,8 @@
 package u03.extensionmethods
 
+import u02.Modules.*
+import Person.*
+
 object Sequences:
   
   enum Sequence[E]:
@@ -24,8 +27,23 @@ object Sequences:
         case Cons(_, t)            => t.filter(pred)
         case Nil()                 => Nil()
 
+      def flatMap[B](mapper: A => Sequence[B]): Sequence[B] = l match
+        case Cons(h, t) => concat(mapper(h), this.flatMap(t)(mapper))
+        case _ => Nil()
+
+    extension [Person](l: Sequence[Person])
+      def courses: Sequence[String] = flatMap(l) {
+        case Teacher(_, c) => Cons(c, Nil())
+        case _ => Nil()
+      }
+
+    def concat[A](l1: Sequence[A], l2: Sequence[A]): Sequence[A] = (l1, l2) match
+      case (Cons(h, t), _) => Cons(h, concat(t, l2))
+      case (Nil(), _) => l2
+
     def of[A](n: Int, a: A): Sequence[A] =
       if (n == 0) then Nil[A]() else Cons(a, of(n - 1, a))
+
 
 @main def trySequences() =
   import Sequences.*
