@@ -31,6 +31,10 @@ object Sequences:
         case Cons(h, t) => concat(mapper(h), this.flatMap(t)(mapper))
         case _ => Nil()
 
+      def foldLeft(dv: A)(pred: (A, A) => A): A = l match
+        case Cons(h, t) => t.foldLeft(pred(dv, h))(pred)
+        case Nil() => dv
+
     extension [Person](l: Sequence[Person])
       def courses: Sequence[String] = flatMap(l) {
         case Teacher(_, c) => Cons(c, Nil())
