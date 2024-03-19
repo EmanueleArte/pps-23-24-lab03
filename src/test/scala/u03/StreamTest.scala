@@ -39,4 +39,7 @@ class StreamTest:
     )
 
   @Test def testPell(): Unit =
-    assertEquals(Cons(0, Cons(1, Cons(2, Cons(5, Cons(12, Nil()))))), Stream.toList(Stream.take(pell)(5)))
+    assertAll(
+      () => assertEquals(Nil(), Stream.toList(Stream.take(pell)(0))),
+      () => assertEquals(Cons(0, Cons(1, Cons(2, Cons(5, Cons(12, Nil()))))), Stream.toList(Stream.take(pell)(5)))
+    )

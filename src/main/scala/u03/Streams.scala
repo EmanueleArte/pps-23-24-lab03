@@ -49,16 +49,13 @@ object Streams extends App:
       case n if n > 0 => cons(k, fill(n - 1)(k))
       case _ => Empty()
 
-    private def pellNumbers(): Stream[Int] = {
-      def nextPell(n1: Int, n2: Int): Stream[Int] = {
+    val pell: Stream[Int] =
+      def nextPell(n1: Int, n2: Int): Stream[Int] =
         val next = 2 * n2 + n1
         cons(next, nextPell(n2, next))
-      }
 
       cons(0, cons(1, nextPell(0, 1)))
-    }
 
-    val pell: Stream[Int] = pellNumbers()
     
   end Stream
 
