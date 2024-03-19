@@ -96,7 +96,7 @@ object Sequences:
       // 3. -----------
       def foldLeft(dv: A)(pred: (A, A) => A): A = l match
         case Cons(h, t) => t.foldLeft(pred(dv, h))(pred)
-        case Nil() => dv
+        case _ => dv
       // --------------
 
       // 4. -----------
